@@ -9,19 +9,37 @@ const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
 // Connection to the database "recipe-app"
 mongoose
-  .connect(MONGODB_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(self => {
-    console.log(`Connected to the database: "${self.connection.name}"`);
-    // Before adding any documents to the database, let's delete all previous entries
-    return self.connection.dropDatabase();
-  })
-  .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    .connect(MONGODB_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then((self) => {
+        console.log(`Connected to the database: "${self.connection.name}"`);
+        // Before adding any documents to the database, let's delete all previous entries
+        return self.connection.dropDatabase();
+    })
+    .then(() => {
+        // Run your code here, after you have insured that the connection was made
+    })
+    .catch((error) => {
+        console.error('Error connecting to the database', error);
+    });
+
+Recipe.create({
+    title: 'Pizza',
+    level: 'Easy Peasy',
+    ingredients: ['flour', 'water', 'salt', 'yeast', 'tomato', 'mozzarella'],
+    cuisine: 'italian',
+    dishType: 'main_course',
+    image: '',
+    duration: '3',
+    creator: 'Marco',
+    created: '',
+}).then((recipe) => {
+    console.log('new recipe created', recipe.title);
+});
+
+// Recipe.insertMany(data).then((recipe) => {
+//     console.log('new recipe created', recipe.title);
+// });
